@@ -1,0 +1,66 @@
+*{
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/*--navbar start--*/
+.nav-link{
+  color: white;
+  font-size: 16px;
+}
+
+.nav-link:hover{
+  color: #537D86;
+}
+.nav-link:focus{
+  color: #537D86;
+}
+
+.reg_btn:hover{
+ background-color: #537D86;
+ border: none;
+ color: white;
+}
+/*--navbar end--*/
+
+.login_btn{
+  background-color: #537D86;
+  color: white;
+}
+
+.login_btn:hover{
+  background-color: darkslategrey;
+  color: white;
+}
+
+/*--admin dashboard start--*/
+.sidenav {
+  height: 91vh;
+  overflow-y: auto;
+}
+.navbar{
+  background-color: #00446B;
+}
+#sidebarMenu{
+  background-color: #005D92;
+}
+
+.admin_nav li a{
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+.admin_nav li:hover{
+  background-color: white;
+}
+
+.admin_nav li a:hover{
+  color: black;
+}
+
+#sidebarMenu .dropdown-menu li:hover{
+  background-color: #2A7CC7;
+}
+
+
