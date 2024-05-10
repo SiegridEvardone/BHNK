@@ -165,7 +165,7 @@
                     </div>
                     <div class="col-12" style="background-color: #DCDCDC;">
                       <div class="p-2">
-                        <a href="" class="text-dark text-decoration-none fs-6">
+                        <a href="tenants.php" class="text-dark text-decoration-none fs-6">
                           View Details > 
                         </a>
                       </div>
@@ -243,7 +243,7 @@
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
                         <div class="p-2">
-                          <a href="" class="text-dark text-decoration-none fs-6">
+                          <a href="complaints.php" class="text-dark text-decoration-none fs-6">
                             View Details > 
                           </a>
                         </div>
@@ -269,7 +269,7 @@
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
                         <div class="p-2">
-                          <a href="" class="text-dark text-decoration-none fs-6">
+                          <a href="notices.php" class="text-dark text-decoration-none fs-6">
                             View Details > 
                           </a>
                         </div>

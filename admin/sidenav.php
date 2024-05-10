@@ -36,7 +36,7 @@
           <a class="nav-link" href="#"><i class="fa-solid fa-tv"></i> Lease Monitor</a>
         </li>
         <li class="nav-item py-2 pe-2 ps-3">
-          <a class="nav-link" href="#"><i class="fa-solid fa-circle-exclamation"></i> Complaints</a>
+          <a class="nav-link" href="complaints.php"><i class="fa-solid fa-circle-exclamation"></i> Complaints</a>
         </li>
         <li class="nav-item py-2 pe-2 ps-3">
           <a class="nav-link" href="notices.php"><i class="fa-solid fa-bullhorn"></i> Notices</a>

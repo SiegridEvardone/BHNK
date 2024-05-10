@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notices</title>
+  <title>Tenant Notices</title>
 </head>
 <body>
   <?php
@@ -17,8 +17,6 @@
       <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
         <div class="container mt-1">
           <h1 class="mb-4"><i class="fa-solid fa-bullhorn"></i> Notices</h1>
-          <a href="postpub_notice.php" class="btn btn-success"><i class="fa-solid fa-plus"></i> Public Notice</a>
-          <a href="post_notice.php" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Private Notice</a>
           <div class="container text-center">
             <div class="row align-items-start">
               <div class="col">
@@ -39,7 +37,7 @@
                         $title = $row['title'];
                         $formattedDate = date('d/m/Y', strtotime($date));
                   ?>
-                  <div class="container border border-dark pt-2" style="max-width: 100%; height: 86px;">
+                  <div class="container border border-dark pt-2 mt-1" style="max-width: 100%; height: 86px;">
                     <div class="row">
                       <div class="col">
                         <div class="text-start">
@@ -54,7 +52,7 @@
                           <p class="fs-5 mb-2"><strong><i class="fa-solid fa-circle-exclamation"></i></strong></p>
                         </div>
                         <div class="text-end">
-                          <p><a class="text-decoration-none text-dark" href="notice_view.php?id=<?php echo $row['id']; ?>">view >></a></p>
+                          <p><a class="text-decoration-none text-dark" href="unotice_view.php?id=<?php echo $row['id']; ?>">view >></a></p>
                         </div>
                       </div>
                     </div>
@@ -86,7 +84,7 @@
                         $title = $row['title'];
                         $formattedDate = date('d/m/Y', strtotime($date));
                   ?>
-                  <div class="container border border-dark pt-2" style="max-width: 100%; height: 86px;">
+                  <div class="container border border-dark pt-2  mt-1" style="max-width: 100%; height: 86px;">
                     <div class="row">
                       <div class="col">
                         <div class="text-start">

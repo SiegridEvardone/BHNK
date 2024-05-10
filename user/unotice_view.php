@@ -31,7 +31,7 @@ ob_end_clean();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Notice</title>
+    <title>Tenant View Notice</title>
 </head>
 <body>
   <?php
@@ -48,10 +48,7 @@ ob_end_clean();
             <h3><?php echo $notice['title']; ?></h3>
             <p><?php echo $notice['content']; ?></p>
             <p>Posted on: <?php echo $notice['post_date']; ?></p>
-            <a href="notices.php" class="btn btn-success">Back to Notices</a>
-            <a href="delete_notice.php?id=<?php echo $notice_id; ?>" class="btn btn-danger">
-              Delete
-            </a>
+            <a href="unotices.php" class="btn btn-success">Back to Notices</a>
           </div>
         </div>
       </main>

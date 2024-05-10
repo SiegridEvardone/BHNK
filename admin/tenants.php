@@ -62,19 +62,19 @@
           ?>
           <div class="row bg-light border">
             <div class="col p-2 border-end">
-              <p><span class="fw-normal fst-italic"><?php echo $roomNumber; ?></span></p>
+              <p class="m-0"><span class="fw-normal fst-italic"><?php echo $roomNumber; ?></span></p>
             </div>
             <div class="col p-2 border-end">
-              <p><span class="fw-normal fst-italic"><?php echo $firstname. " " .$lastname; ?></span></p>
+              <p class="m-0"><span class="fw-normal fst-italic"><?php echo $firstname. " " .$lastname; ?></span></p>
             </div>
             <div class="col p-2 border-end">
-              <p><span class="fw-normal fst-italic"><?php echo $email; ?></span></p>
+              <p class="m-0"><span class="fw-normal fst-italic"><?php echo $email; ?></span></p>
             </div>
             <div class="col p-2 border-end">
-              <p><span class="fw-normal fst-italic"><?php echo $dueDate; ?></span></p>
+              <p class="m-0"><span class="fw-normal fst-italic"><?php echo $dueDate; ?></span></p>
             </div>
             <div class="col p-2 border-end">
-              <p><i class="fa-solid fa-peso-sign"></i> <?php echo $rentPrice; ?></p>
+              <p class="m-0"><i class="fa-solid fa-peso-sign"></i> <?php echo $rentPrice; ?></p>
             </div>
           </div>
           <?php

@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       // Verify the password
       if (password_verify($password, $hashed_password)) {
-          $_SESSION['username'] = $username;
+          $_SESSION['user_id'] = $row['user_id'];
           header("Location: user/index.php"); // Redirect to user dashboard
       } else {
           echo "<script>alert('Invalid Username or Password');</script>";
