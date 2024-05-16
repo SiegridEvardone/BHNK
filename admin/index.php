@@ -206,13 +206,13 @@
                     <div class="row g-2">
                       <div class="col-md-8">
                         <div class="p-2 text-white">
-                          <h2>0</h2>
-                          <h5>Total Lease Monitor</h5>
+                          <h2>1</h2>
+                          <h4>Invoice</h4>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="text-white text-end p-3">
-                          <i class="fa-solid fa-tv fs-1"></i>
+                        <i class="fa-solid fa-file-invoice fs-1"></i>
                         </div>
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
@@ -233,12 +233,13 @@
                       <div class="col-md-8">
                         <div class="p-2 text-white">
                           <h2>0</h2>
-                          <h4>Total Complaints</h4>
+                          <h4>Income Report</h4>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="text-white text-end p-3">
-                          <i class="fa-solid fa-circle-exclamation fs-1"></i>
+                        
+                        <i class="fa-solid fa-chart-column fs-1"></i>
                         </div>
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
@@ -259,12 +260,12 @@
                       <div class="col-md-8">
                         <div class="p-2 text-white">
                           <h2>0</h2>
-                          <h4>Total Notices</h4>
+                          <h4>Total Lease</h4>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="text-white text-end p-3">
-                        <i class="fa-solid fa-bullhorn fs-1"></i>
+                        <i class="fa-solid fa-tv fs-1"></i>
                         </div>
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
@@ -285,12 +286,12 @@
                       <div class="col-md-8">
                         <div class="p-2 text-white">
                           <h2>0</h2>
-                          <h4>Settings</h4>
+                          <h4>Total Complaints</h4>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="text-white text-end p-3">
-                          <i class="fa-solid fa-gear fs-1"></i>
+                        <i class="fa-solid fa-circle-exclamation fs-1"></i>
                         </div>
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
@@ -310,13 +311,37 @@
                     <div class="row g-2">
                       <div class="col-md-8">
                         <div class="p-2 text-white">
-                          <h2>0</h2>
-                          <h4>Profile</h4>
+                          <h2>
+                          <?php
+                          // Specify the table name for which you want to count the rows
+                          $tableName = 'tblnotices';
+
+                          // SQL query to count the rows in the specified table
+                          $sql = "SELECT COUNT(*) AS rowCount FROM $tableName";
+
+                          // Execute the query
+                          $result = mysqli_query($conn, $sql);
+
+                          // Check if the query was successful
+                          if ($result) {
+                              // Fetch the count from the result
+                              $row = mysqli_fetch_assoc($result);
+                              $rowCount = $row['rowCount'];
+
+                              // Display the row count in your HTML code
+                              echo "<p class='mb-0'>$rowCount</p>";
+                          } else {
+                              // Handle the case where the query fails
+                              echo "<p>Failed to retrieve row count for table: $tableName</p>";
+                          }
+                        ?>
+                          </h2>
+                          <h4>Total Notices</h4>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="text-white text-end p-3">
-                        <i class="fa-solid fa-user-gear fs-1"></i>
+                        <i class="fa-solid fa-bullhorn fs-1"></i>
                         </div>
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
