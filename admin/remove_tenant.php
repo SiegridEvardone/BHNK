@@ -6,7 +6,7 @@ if(isset($_GET['id'])) {
     $roomId = $_GET['id'];
     echo "<script>alert('Are you sure You want to remove the tenant?');</script>";
     // Delete the tenant record associated with the room
-    $deleteTenantQuery = "DELETE FROM tbltenants WHERE room_id = :roomId";
+    $deleteTenantQuery = "DELETE FROM tenant_leases WHERE RoomID = :roomId";
     $stmt = $pdo->prepare($deleteTenantQuery);
     $stmt->bindParam(':roomId', $roomId);
     $stmt->execute();

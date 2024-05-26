@@ -1,6 +1,4 @@
 <?php
-    
-
     // Include database connection
     include('../include/connection.php');
 

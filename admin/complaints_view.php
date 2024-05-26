@@ -1,13 +1,10 @@
 <?php
 session_start();
-ob_start();
-
-// Include database connection
 include('../include/connection.php');
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: userlogin.php");
+// Check if the admin is logged in
+if (!isset($_SESSION['admin_id']) || $_SESSION['role'] != 'admin') {
+    header("Location: ../adminlogin.php");
     exit();
 }
 
@@ -17,13 +14,13 @@ if (!isset($_GET['id'])) {
     exit();
 }
 
-$complaint_id = $_GET['id'];
+$complaint_id = intval($_GET['id']);
 
 // Fetch the complaint details
 $sql = "SELECT 
             c.id, 
             c.title, 
-            c.content,
+            c.content, 
             c.date_submitted, 
             c.status, 
             COALESCE(c.admin_response, 'N/A') AS reply, 
@@ -45,7 +42,6 @@ if ($result->num_rows === 0) {
 }
 
 $complaint = $result->fetch_assoc();
-
 $stmt->close();
 
 // Check if form is submitted for reply
@@ -55,18 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reply"])) {
     // Update the complaint with admin's response
     $update_sql = "UPDATE tblcomplaints SET admin_response = ? WHERE id = ?";
     $update_stmt = $conn->prepare($update_sql);
-    if (!$update_stmt) {
-        die('Error preparing reply update statement: ' . $conn->error);
-    }
     $update_stmt->bind_param("si", $reply, $complaint_id);
-    if (!$update_stmt->execute()) {
-        die('Error executing reply update statement: ' . $update_stmt->error);
-    }
+    $update_stmt->execute();
     $update_stmt->close();
 
     header("Location: complaints_view.php?id=" . $complaint_id);
     exit();
-
 }
 
 // Check if form is submitted for status change
@@ -76,22 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["status"])) {
     // Update the complaint status
     $update_status_sql = "UPDATE tblcomplaints SET status = ? WHERE id = ?";
     $update_status_stmt = $conn->prepare($update_status_sql);
-    if (!$update_status_stmt) {
-        die('Error preparing status update statement: ' . $conn->error);
-    }
     $update_status_stmt->bind_param("si", $new_status, $complaint_id);
-    if (!$update_status_stmt->execute()) {
-        die('Error executing status update statement: ' . $update_status_stmt->error);
-    }
+    $update_status_stmt->execute();
     $update_status_stmt->close();
 
     header("Location: complaints_view.php?id=" . $complaint_id);
     exit();
-
 }
 
 $conn->close();
-ob_end_clean();
 ?>
 
 <!DOCTYPE html>

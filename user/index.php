@@ -66,7 +66,7 @@
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
                         <div class="p-2">
-                          <a href="" class="text-dark text-decoration-none fs-6">
+                          <a href="ucomplaints.php" class="text-dark text-decoration-none fs-6">
                             View Details > 
                           </a>
                         </div>
@@ -92,7 +92,7 @@
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
                         <div class="p-2">
-                          <a href="" class="text-dark text-decoration-none fs-6">
+                          <a href="unotices.php" class="text-dark text-decoration-none fs-6">
                             View Details > 
                           </a>
                         </div>
@@ -144,7 +144,7 @@
                       </div>
                       <div class="col-12" style="background-color: #DCDCDC;">
                         <div class="p-2">
-                          <a href="" class="text-dark text-decoration-none fs-6">
+                          <a href="uprofile.php" class="text-dark text-decoration-none fs-6">
                             View Details > 
                           </a>
                         </div>
