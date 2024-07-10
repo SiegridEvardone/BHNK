@@ -41,9 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include('sidenav.php');
       ?>  
       <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+        <div class="container bg-light p-3" style="height: 510px;">
           <h1 class="mb-2"><i class="fa-solid fa-users"></i> Extend Lease</h1>
-        </div>
+        
         <div class="border border-dark p-4 mx-auto" style="max-width: 50%;">
         <form method="post">
             <label for="lease_id" class="form-label">Lease ID:</label>
@@ -52,9 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <label for="new_end_date" class="form-label">New End Date:</label>
             <input type="date" id="new_end_date" name="new_end_date" class="form-control pb-0" required><br>
-            <a href="lease_monitor.php" class="btn btn-success">Back</a>
+            <a href="lease_monitor.php" class="btn btn-danger">Cancel</a>
             <button type="submit" class="btn btn-primary">Extend Lease</button>
         </form>
+        </div>
         </div>
       </main>
     </div>

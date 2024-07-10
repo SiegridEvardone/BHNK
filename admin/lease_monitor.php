@@ -14,10 +14,10 @@
       <?php
         include('sidenav.php');
       ?>  
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3">
           <h1 class="mb-2"><i class="fa-solid fa-users"></i> Lease Monitor</h1>
-        </div>
+        
         <div class="container p-0 overflow-y-auto mb-4" style="height: 400px; overflow-x: hidden;">
         <div class="row">
         <?php
@@ -63,8 +63,7 @@
         <p class="card-text"><strong>Start Date: </strong><i><?php echo $startDate; ?></i></p>
         <p class="card-text"><strong>Next Duedate: </strong><i><?php echo $nextDueDate; ?></i></p>
         <p class="card-text"><strong>End Date: </strong><i><?php echo $endDate; ?></i></p>
-        <a href='edit_lease.php?lease_id=<?php echo $row['LeaseID']; ?>' class='btn btn-success'>EDIT</a>
-        <a href='extend_lease.php?lease_id=<?php echo $row['LeaseID']; ?>' class='btn btn-primary'>EXTEND</a>
+        <a href='extend_lease.php?lease_id=<?php echo $row['LeaseID']; ?>' class='btn btn-primary text-light'>EXTEND</a>
       </div>
     </div>
   </div>
@@ -78,6 +77,7 @@
             mysqli_close($conn);
           ?>
 </div>
+        </div>
         </div>
       </main>
     </div>

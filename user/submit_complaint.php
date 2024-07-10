@@ -7,44 +7,42 @@ include('../include/connection.php');
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ulogin.php");
     exit();
 }
 
-// Check if the form has been submitted successfully previously in this session
-if(isset($_SESSION['complaint_submitted']) && $_SESSION['complaint_submitted'] === true) {
-    // Reset the session variable to prevent repeated alerts
-    $_SESSION['complaint_submitted'] = false;
-}
+// Get the logged-in user's ID
+$user_id = $_SESSION['user_id'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $tenant_id = $_SESSION['user_id'];
+// Check if form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validate and sanitize input (example, adapt as per your requirements)
     $title = $_POST['title'];
     $content = $_POST['content'];
+    
+    // Insert complaint into tblcomplaints
+    $sql = "INSERT INTO tblcomplaints (tenant_id, title, content, date_submitted, status)
+            VALUES (?, ?, ?, NOW(), 'Pending')";
 
-    $stmt = $conn->prepare("INSERT INTO tblcomplaints (tenant_id, title, content) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $tenant_id, $title, $content);
-
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iss", $user_id, $title, $content);
+    
     if ($stmt->execute()) {
-        // Close prepared statement
-        $stmt->close();
-        
-        // Close database connection
-        $conn->close();
-
-        // Set session variable to indicate successful form submission
-        $_SESSION['complaint_submitted'] = true;
-
-        // Redirect to complaints page with success message
-        header("Location: ucomplaints.php?success=1");
+        // Successful insertion
+        header("Location: ucomplaints.php");
         exit();
     } else {
+        // Error handling
         echo "Error: " . $stmt->error;
     }
+
+    $stmt->close();
 }
 
+$conn->close();
 ob_end_clean();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,8 +61,8 @@ include('../include/dash_header.php');
         <?php
         include('sidenav.php');
         ?>
-        <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-            <div class="container mt-1">
+        <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+            <div class="container bg-light p-3" style="height: 86vh;">
                 <h1 class="mb-4"><i class="fa-solid fa-circle-exclamation"></i> Submit a complaint</h1>
                 <form action="" method="POST" class="border p-3">
                     <label for="title" class="form-label">Title:</label>

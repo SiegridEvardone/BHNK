@@ -37,12 +37,12 @@ include('../include/dash_header.php');
     <?php
     include('sidenav.php');
     ?>  
-    <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+    <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3">
             <h1 class="mb-2"><i class="fa-solid fa-door-open"></i> Available Rooms</h1>
 
             <!-- List of Rooms -->
-            <div class="mt-3">
+            <div class="mt-3 ">
                 <div class="container text-center p-0">
                     <div class="row border" style="background-color: #D3D3D3;">
                         <div class="col p-2">
@@ -66,7 +66,7 @@ include('../include/dash_header.php');
                     </div>
                 </div>
             
-                <div class="container text-center p-0 overflow-y-auto" style="max-height: 400px; overflow-x: hidden;">
+                <div class="container text-center p-0 overflow-y-auto" style="max-height: 380px; overflow-x: hidden;">
                 <?php
                 // Fetch rooms and their assigned tenants from the database
                 $sql = "SELECT r.*, GROUP_CONCAT(CONCAT(u.first_name, ' ', u.last_name) SEPARATOR ', ') AS tenant_names

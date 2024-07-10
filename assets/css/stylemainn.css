@@ -1,0 +1,81 @@
+*{
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.home_bg{
+  background: linear-gradient(#0A1A44,#0A1A44,#071332,#00C4CC);
+}
+
+/* Custom CSS to change the hover color of dropdown items */
+.dropdown-item:hover {
+    background-color: #b1b2b4; 
+    color: white;
+}
+
+/*--navbar start--*/
+.nav-link{
+  color: white;
+  font-size: 16px;
+}
+
+.nav-link:hover{
+  color: #537D86;
+}
+.nav-link:focus{
+  color: #537D86;
+}
+
+.reg_btn:hover{
+ background-color: #537D86;
+ border: none;
+ color: white;
+}
+/*--navbar end--*/
+
+.login_btn{
+  background-color: #537D86;
+  color: white;
+}
+
+.login_btn:hover{
+  background-color: darkslategrey;
+  color: white;
+}
+
+/*--admin dashboard start--*/
+.sidenav {
+  height: auto;
+  overflow-y: auto;
+}
+
+.navbar{
+  background: linear-gradient(to right,#0F1035,#365486,#7FC7D9);
+}
+#sidebarMenu{
+  background-color: #0C134F;
+}
+
+.admin_nav li a{
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+.admin_nav li:hover{
+  background-color: #05071e;
+}
+
+.admin_nav li a:hover{
+  color: white;
+}
+
+#sidebarMenu .dropdown-menu li:hover{
+  background-color: #2A7CC7;
+}
+
+main{
+  height: auto;
+  background-color: #e7e6e6;
+}

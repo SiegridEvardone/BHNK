@@ -27,7 +27,7 @@
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fa-solid fa-money-bill-wave"></i> Payments</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item text-dark" href="">Payments</a></li>
-            <li><a class="dropdown-item text-dark" href="">Invoice</a></li>
+            <li><a class="dropdown-item text-dark" href="invoice.php">Invoice</a></li>
             <li><a class="dropdown-item text-dark" href="">Payments History</a></li>
             <li><a class="dropdown-item text-dark" href="">Income Report</a></li>
           </ul>

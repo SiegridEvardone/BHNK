@@ -43,7 +43,7 @@ ob_end_clean();
         include('sidenav.php');
       ?> 
       <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-3 text-center">
+        <div class="container bg-light p-3 text-center" style="height: 510px;">
           <div class="border border-dark p-4 mx-auto" style="max-width: 50%;">
             <h3><?php echo $notice['title']; ?></h3>
             <p><?php echo $notice['content']; ?></p>

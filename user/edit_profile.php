@@ -69,7 +69,8 @@ ob_end_clean();
       <?php
         include('sidenav.php');
       ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+      <div class="container bg-light p-3">
         <div class="container border border-dark mt-1 p-3" style="max-width: 70%;height: 85%;">
           <form action="update_profile.php" method="POST" enctype="multipart/form-data">
             <div class="row mb-4">
@@ -142,9 +143,9 @@ ob_end_clean();
 
         </div>
       </form>
+      </div>
       </main>
     </div>
   </div>
-  
 </body>
 </html>

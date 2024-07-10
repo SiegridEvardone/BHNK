@@ -44,18 +44,18 @@ if(isset($_GET['id'])) {
       <?php
         include('sidenav.php');
       ?>  
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
-          <h3 class="mb-4">Edit Room</h3>
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3">
+          <h3 class="mb-4"><i class="fa-solid fa-door-open"></i> Edit Room</h3>
           <!-- Edit Room Form -->
-          <form action="update_room.php" method="post" enctype="multipart/form-data">
+          <form action="update_room.php" method="post" enctype="multipart/form-data" class="border border-1 border-dark rounded p-4 ">
               <div class="mb-3">
                   <label for="roomNumber" class="form-label">Room Number</label>
                   <input type="text" class="form-control" id="roomNumber" name="roomNumber" value="<?php echo $roomNumber; ?>" required>
               </div>
               <div class="mb-3">
                   <label for="description" class="form-label">Description</label>
-                  <textarea class="form-control" id="description" name="description" rows="3" required><?php echo $description; ?></textarea>
+                  <textarea class="form-control" id="description" name="description" rows="1" required><?php echo $description; ?></textarea>
               </div>
               <div class="mb-3">
                   <label for="rentPrice" class="form-label">Rent Price</label>
@@ -66,8 +66,9 @@ if(isset($_GET['id'])) {
                   <input type="file" class="form-control" id="image" name="image" accept="image/*">
               </div>
               <input type="hidden" name="roomId" value="<?php echo $roomId; ?>">
-              <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this room?')">Update</button>
               <a href="rooms.php" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update this room?')">Update</button>
+              
           </form>
         </div>
       </main>

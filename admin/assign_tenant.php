@@ -1,47 +1,49 @@
 <?php
-include ('../include/connection.php');
+include('../include/connection.php');
 
 $pdo = new PDO('mysql:host=localhost;dbname=bhnk_db', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Check if the room ID is provided in the URL
-if(isset($_GET['id'])) {
-    // Query to fetch the current values from the database
-    $query = "SELECT room_number, description, rent_price, beds, image FROM tblrooms WHERE id = :id";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':id', $_GET['id']);
-    $stmt->execute();
-    $room = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Assign the fetched values to variables
-    $roomNumber = $room['room_number'];
-    $description = $room['description'];
-    $rentPrice = $room['rent_price'];
-    $beds = $room['beds'];
-    $image = $room['image'];
-
-    // Calculate rent per bed
-    $rentPerBed = $rentPrice / $beds;
-
-    // Store room ID in a variable for later use
+// Check if room ID is provided in the URL
+if (isset($_GET['id'])) {
     $roomId = $_GET['id'];
+
+    try {
+        // Fetch room details
+        $query = "SELECT room_number, description, rent_price, beds, image FROM tblrooms WHERE id = :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':id', $roomId, PDO::PARAM_INT);
+        $stmt->execute();
+        $room = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Calculate rent per bed
+        $rentPrice = $room['rent_price'];
+        $beds = $room['beds'];
+        $rentPerBed = $rentPrice / $beds;
+
+        // Fetch users who do not have any room assignments yet
+        $queryUsers = "SELECT u.user_id, u.first_name, u.last_name
+                       FROM tbluser u
+                       WHERE NOT EXISTS (
+                           SELECT 1 FROM tbltenant t WHERE t.user_id = u.user_id
+                       )";
+
+        $stmtUsers = $pdo->query($queryUsers);
+        $users = $stmtUsers->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        exit(); // Exit the script if there's an error
+    }
 } else {
     // If room ID is not provided, redirect to an error page or display an error message
     header('Location: error.php');
     exit(); // Exit the script
 }
 
-// Fetch users from tbluser table
-$queryUsers = "SELECT user_id, first_name, last_name FROM tbluser";
-$stmtUsers = $pdo->query($queryUsers);
-$users = $stmtUsers->fetchAll(PDO::FETCH_ASSOC);
-?>
-
-<?php
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
-    $roomId = $_POST['roomId'];
     $userId = $_POST['userId'];
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'] ?: NULL; // Allow end date to be NULL
@@ -50,35 +52,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Begin a transaction
         $pdo->beginTransaction();
 
-        // Insert lease details into the database
-        $query = "INSERT INTO tenant_leases (RoomID, UserID, StartDate, EndDate) 
-                  VALUES (:roomId, :userId, :startDate, :endDate)";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':roomId', $roomId);
-        $stmt->bindParam(':userId', $userId);
-        $stmt->bindParam(':startDate', $startDate);
-        $stmt->bindParam(':endDate', $endDate);
-        $stmt->execute();
+        // Insert lease details into tenant_leases table
+        $queryLease = "INSERT INTO tenant_leases (RoomID, UserID, StartDate, EndDate) 
+                       VALUES (:roomId, :userId, :startDate, :endDate)";
+        $stmtLease = $pdo->prepare($queryLease);
+        $stmtLease->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+        $stmtLease->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmtLease->bindParam(':startDate', $startDate);
+        $stmtLease->bindParam(':endDate', $endDate);
+        $stmtLease->execute();
 
-        // Update the room status to occupied
-        $updateQuery = "UPDATE tblrooms SET status = 'occupied' WHERE id = :roomId";
-        $updateStmt = $pdo->prepare($updateQuery);
-        $updateStmt->bindParam(':roomId', $roomId);
-        $updateStmt->execute();
+        // Insert tenant assignment into tbltenants table
+        $queryTenant = "INSERT INTO tbltenant (room_id, user_id) 
+                        VALUES (:roomId, :userId)";
+        $stmtTenant = $pdo->prepare($queryTenant);
+        $stmtTenant->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+        $stmtTenant->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmtTenant->execute();
+
+        // Update room status to occupied
+        $queryUpdateRoom = "UPDATE tblrooms SET status = 'occupied' WHERE id = :roomId";
+        $stmtUpdateRoom = $pdo->prepare($queryUpdateRoom);
+        $stmtUpdateRoom->bindParam(':roomId', $roomId, PDO::PARAM_INT);
+        $stmtUpdateRoom->execute();
 
         // Commit the transaction
         $pdo->commit();
 
-        // Redirect to the available rooms page after successful assignment
+        // Redirect after successful assignment
         header('Location: avail_rooms.php');
         exit();
-    } catch (Exception $e) {
-        // Rollback the transaction if something went wrong
+    } catch (PDOException $e) {
+        // Rollback the transaction if an error occurs
         $pdo->rollBack();
         echo "Failed to assign tenant: " . $e->getMessage();
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -98,8 +109,8 @@ include('../include/dash_header.php');
         <?php
         include('sidenav.php');
         ?>
-        <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-            <div class="container">
+        <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+            <div class="container bg-light p-3">
                 <h1 class="mb-2"><i class="fa-solid fa-door-open"></i> Assign Tenant to Room</h1>
                 <!-- Add Room Form -->
                 <form method="post" enctype="multipart/form-data" class="border border-1 border-dark rounded p-4 ">
@@ -125,8 +136,8 @@ include('../include/dash_header.php');
                         <label for="rentPrice" class="form-label">Rent Price (Per Bed)</label>
                         <input type="number" class="form-control pb-0" id="rentPrice" name="rentPrice" value="<?php echo htmlspecialchars($rentPerBed); ?>" readonly>
                     </div>
-                    <button type="submit" class="btn btn-success">Assign Tenant</button>
                     <a href="avail_rooms.php" class="btn btn-danger">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Assign Tenant</button>
                 </form>
             </div>
         </main>

@@ -7,7 +7,7 @@
     <title>Admin Page</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="../assets/css/all.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../assets/css/stylemain.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/stylemainn.css"/>
 </head>
 <body>
     <!-- Navbar -->

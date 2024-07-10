@@ -32,8 +32,8 @@ ob_end_clean();
   <div class="container-fluid">
     <div class="row">
       <?php include('sidenav.php'); ?>
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3">
           <h1 class="mb-4"><i class="fa-solid fa-bullhorn"></i> Notices</h1>
           
           <div class="container text-center">
@@ -43,7 +43,7 @@ ob_end_clean();
                 <div class="bg-secondary-subtle mt-3">
                   <h5>Public Notices</h5>
                 </div>
-                <div class="container p-0 overflow-y-auto mt-2" style="height: 400px; overflow-x: hidden;">
+                <div class="container p-0 overflow-y-auto mt-2" style="height: 360px; overflow-x: hidden;">
                   <?php if ($public_notices): ?>
                     <?php foreach ($public_notices as $notice): ?>
                       <div class="container border border-dark pt-2 mb-1" style="max-width: 100%;">
@@ -78,7 +78,7 @@ ob_end_clean();
                 <div class="bg-secondary-subtle mt-3">
                   <h5>Private Notices</h5>
                 </div>
-                <div class="container p-0 overflow-y-auto mt-2" style="height: 400px; overflow-x: hidden;">
+                <div class="container p-0 overflow-y-auto mt-2" style="height: 360px; overflow-x: hidden;">
                   <?php if ($private_notices): ?>
                     <?php foreach ($private_notices as $notice): ?>
                       <div class="container border border-dark pt-2 mb-1" style="max-width: 100%;">

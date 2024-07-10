@@ -7,7 +7,7 @@ include('../include/connection.php');
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ulogin.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -19,19 +19,24 @@ if (!isset($_GET['id'])) {
 
 $complaint_id = $_GET['id'];
 
-// Fetch the complaint details
-$sql = "SELECT 
-            c.title, 
-            c.content,
-            c.date_submitted, 
-            c.status, 
-            COALESCE(c.admin_response, 'N/A') AS reply, 
-            u.first_name, 
-            u.last_name, 
-            u.room_number 
-        FROM tblcomplaints c 
-        JOIN tbluser u ON c.tenant_id = u.user_id 
-        WHERE c.id = ?";
+// Fetch the user's complaint details
+$sql = "
+    SELECT 
+        c.id, 
+        c.title, 
+        c.content, 
+        c.date_submitted, 
+        c.status, 
+        COALESCE(c.admin_response, 'N/A') AS reply,
+        u.first_name, 
+        u.last_name,
+        b.room_id
+    FROM tblcomplaints c
+    JOIN tbltenant b ON c.tenant_id = b.user_id
+    JOIN tbluser u ON b.user_id = u.user_id
+    WHERE c.id = ?
+";
+
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $complaint_id);
@@ -55,7 +60,7 @@ ob_end_clean();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Complaints view</title>
+  <title>Complaint View</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -63,19 +68,17 @@ ob_end_clean();
   <div class="container-fluid">
     <div class="row">
       <?php include('sidenav.php'); ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-3 text-center">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3" style="height: 86vh;">
           <div class="border border-dark p-4 mx-auto" style="max-width: 50%;">
-            <p>Date: <?php echo htmlspecialchars(date('d/m/Y', strtotime($complaint['date_submitted']))); ?></p>
-            <h3>Title: <?php echo htmlspecialchars($complaint['title']); ?></h3>
+            <p><strong>Date:</strong> <?php echo htmlspecialchars(date('F d, Y', strtotime($complaint['date_submitted']))); ?></p>
+            <h4>Title: <?php echo htmlspecialchars($complaint['title']); ?></h4>
             <h5>Content: <?php echo htmlspecialchars($complaint['content']); ?></h5>
-            <p>Reply from owner: <?php echo htmlspecialchars($complaint['reply']); ?></p>
-            <p>Status: <?php echo htmlspecialchars($complaint['status']); ?></p>
-            <p>Tenant Name: <?php echo htmlspecialchars($complaint['first_name'] . ' ' . $complaint['last_name']); ?></p>
+            <p><strong>Reply from owner:</strong> <?php echo htmlspecialchars($complaint['reply']); ?></p>
+            <p><strong>Status:</strong> <?php echo htmlspecialchars($complaint['status']); ?></p>
+            <p><strong>Tenant Name:</strong> <?php echo htmlspecialchars($complaint['first_name'] . ' ' . $complaint['last_name']); ?></p>
             <a href="ucomplaints.php" class="btn btn-success">Back to Complaints</a>
-            <!-- Add the complaint ID as a query parameter to the Delete button's URL -->
             <a href="delete_complaint.php?id=<?php echo $complaint_id; ?>" class="btn btn-danger">Delete</a>
-
           </div>
         </div>
       </main>

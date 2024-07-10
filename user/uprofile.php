@@ -50,7 +50,8 @@ ob_end_clean();
       <?php
         include('sidenav.php');
       ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3">
         <div class="container border border-dark mt-1 p-3" style="max-width: 70%;height: 85%;">
           <div class="row mb-2">
             <div class="container border p-0" style="max-width: 20%; height: 150px;">
@@ -91,6 +92,8 @@ ob_end_clean();
             <a href="edit_profile.php" class="btn btn-primary mx-auto"> Edit info</a>
           </div>
         </div>
+        </div>
+        
       </main>
     </div>
   </div>

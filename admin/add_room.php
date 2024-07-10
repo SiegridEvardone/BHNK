@@ -1,5 +1,4 @@
 <?php
-// Include your database connection file
 include ('../include/connection.php');
 
 // Check if form is submitted
@@ -41,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <?php
         include('sidenav.php');
       ?>  
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container mt-1 bg-light p-3">
           <h3 class="mb-4"><i class="fa-solid fa-door-open"></i> Add Room</h3>
           <!-- Add Room Form -->
           <form method="post" enctype="multipart/form-data" class="border border-1 border-dark rounded p-4 ">
@@ -62,8 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <label for="image" class="form-label">Image</label>
                   <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
               <a href="rooms.php" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
       </main>

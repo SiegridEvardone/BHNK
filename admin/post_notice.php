@@ -29,8 +29,8 @@ ob_end_clean();
       <?php
         include('sidenav.php');
       ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-3" style="height: 510px;">
           <h1 class="mb-4"><i class="fa-solid fa-bullhorn"></i> Post a notice</h1>
           <?php
             if (isset($_SESSION['error_message'])) {

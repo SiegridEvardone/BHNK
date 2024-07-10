@@ -14,8 +14,8 @@
     <?php
         include('sidenav.php');
     ?>  
-    <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
+    <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+        <div class="container bg-light p-4">
             <h1 class="mb-2"><i class="fa-solid fa-door-open"></i> Rooms</h1>
             <a href="add_room.php" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add room</a>
 
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             
-                <div class="container text-center p-0 overflow-y-auto" style="max-height: 400px; overflow-x: hidden;">
+                <div class="container text-center p-0 overflow-y-auto" style="max-height: 320px; overflow-x: hidden;">
                     <!-- Fetch and display rooms from the database -->
                     <?php
                         // Include your database connection file
@@ -72,15 +72,18 @@
                             <p><i class="fa-solid fa-peso-sign"></i> <?php echo $rentPrice; ?></p>
                         </div>
                         <div class="col p-2 border-end">
-                            <img src="<?php echo $image; ?>" class="img-fluid rounded-start" alt="Room Image">
+                            <img src="<?php echo $image; ?>" class="img-fluid rounded-start" alt="Room Image" style="max-width: 100px">
                         </div>
-                        <div class="col p-2 border-end">
-                            <a href="edit_room.php?id=<?php echo $roomId; ?>" class="btn btn-primary mb-2">
+                        <div class="col p-2 border-end pt-4">
+                            <a href="edit_room.php?id=<?php echo $roomId; ?>" class="btn btn-primary">
                                 Edit
-                            </a> <br>
-                            <a href="delete_room.php?id=<?php echo $roomId; ?>" class="btn btn-danger">
-                                Delete
                             </a>
+                            <script>
+                                function confirmRemoval() {
+                                    return confirm("Are you sure you want to delete this room?");
+                                }
+                            </script>
+                            <button onclick="if (confirmRemoval()) location.href='delete_room.php?id=<?php echo $roomId; ?>';" class="btn btn-danger">Delete</button>
                         </div>
                     </div>
                     <?php
