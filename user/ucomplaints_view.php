@@ -70,13 +70,24 @@ ob_end_clean();
       <?php include('sidenav.php'); ?> 
       <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
         <div class="container bg-light p-3" style="height: 86vh;">
-          <div class="border border-dark p-4 mx-auto" style="max-width: 50%;">
-            <p><strong>Date:</strong> <?php echo htmlspecialchars(date('F d, Y', strtotime($complaint['date_submitted']))); ?></p>
-            <h4>Title: <?php echo htmlspecialchars($complaint['title']); ?></h4>
-            <h5>Content: <?php echo htmlspecialchars($complaint['content']); ?></h5>
-            <p><strong>Reply from owner:</strong> <?php echo htmlspecialchars($complaint['reply']); ?></p>
-            <p><strong>Status:</strong> <?php echo htmlspecialchars($complaint['status']); ?></p>
-            <p><strong>Tenant Name:</strong> <?php echo htmlspecialchars($complaint['first_name'] . ' ' . $complaint['last_name']); ?></p>
+          <div class="border border-dark p-4 mx-auto " style="max-width: 50%;">
+            <div class="row align-items-start">
+              <p><strong>Date: </strong><?php echo htmlspecialchars(date('F d, Y', strtotime($complaint['date_submitted']))); ?></p>
+              <div class="col-5">
+              <h4>Title: </h4>
+              <h5>Content: </h5>
+              <p><strong>Reply from owner:</strong></p>
+              <p><strong>Status:</strong></p>
+              <p><strong>Name:</strong></p>
+              </div>
+              <div class="col-7">
+                <h4><?php echo htmlspecialchars($complaint['title']); ?></h4>
+                <h5><?php echo htmlspecialchars($complaint['content']); ?></h5>
+                <p><?php echo htmlspecialchars($complaint['reply']); ?></p>
+                <p><?php echo htmlspecialchars($complaint['status']); ?></p>
+                <p> <i><?php echo htmlspecialchars($complaint['first_name'] . ' ' . $complaint['last_name']); ?></i></p>
+              </div>
+            </div>
             <a href="ucomplaints.php" class="btn btn-success">Back to Complaints</a>
             <a href="delete_complaint.php?id=<?php echo $complaint_id; ?>" class="btn btn-danger">Delete</a>
           </div>

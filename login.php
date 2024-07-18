@@ -40,15 +40,15 @@
       max-width: 400px;
     }
     .nav-link {
-      background-color: #007bff;
-      color: #fff;
+      background-color: #fff;
+      color: #0062cc;
       padding: 5px 10px;
       height: 40px;
       border: 2px solid #0062cc;
     }
     .nav-link.active {
-      background-color: #fff !important;
-      color: #0062cc !important;
+      background-color: #007bff !important;
+      color: #fff !important;
       border: 2px solid #0062cc;
       font-weight: 600;
       width: 100px;
@@ -185,7 +185,7 @@
                     <div class="btn-container d-grid">
                       <input type="submit" name="login" class="btn btn-primary" value="Login">
                       <hr>
-                      <a href="face_login_form.php" class="btn btn-secondary">Face Login</a>
+                      <a href="face_login.html" class="btn btn-secondary">Face Login</a>
                     </div>
                   </form>
                 </div>

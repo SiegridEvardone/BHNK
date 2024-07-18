@@ -1,38 +1,49 @@
 <?php
 session_start();
+ob_start();
+
+// Include database connection
 include('../include/connection.php');
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to the login page if not logged in
-    header("Location: userlogin.php");
+    header("Location: login.php");
     exit();
 }
 
-// Fetch tenant details from the database
-$tenant_id = $_SESSION['user_id'];
-$sql = "SELECT t.room_id, r.room_number, CONCAT(u.first_name, ' ', u.last_name) AS full_name, t.due_date 
-        FROM tbltenants t 
-        INNER JOIN tblrooms r ON t.room_id = r.id 
-        INNER JOIN tbluser u ON t.user_id = u.user_id 
-        WHERE t.user_id = ?";
+// Fetch tenant information including room number and due date
+$user_id = $_SESSION['user_id'];
+
+$sql = "SELECT u.first_name, u.last_name, r.room_number, tl.StartDate, DATE_ADD(tl.StartDate, INTERVAL 1 MONTH) AS due_date
+        FROM tbluser u
+        JOIN tbltenant t ON u.user_id = t.user_id
+        JOIN tblrooms r ON t.room_id = r.id
+        JOIN tenant_leases tl ON t.user_id = tl.UserID
+        WHERE u.user_id = ?";
+
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $tenant_id);
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $room_number = $row['room_number'];
-    $full_name = $row['full_name'];
-    $monthly_due_date = date('m/d/Y', strtotime($row['due_date']));
+    $first_name = htmlspecialchars($row['first_name']);
+    $last_name = htmlspecialchars($row['last_name']);
+    $room_number = htmlspecialchars($row['room_number']);
+    $start_date = htmlspecialchars(date('F d, Y', strtotime($row['StartDate'])));
+    $due_date = htmlspecialchars(date('F d, Y', strtotime($row['due_date'])));
 } else {
-    // Handle case where no tenant details are found
-    $room_number = "N/A";
-    $full_name = "N/A";
-    $monthly_due_date = "N/A";
+    // Handle case where no data is found (though it should not happen if user_id is correctly set)
+    $first_name = '';
+    $last_name = '';
+    $room_number = '';
+    $start_date = '';
+    $due_date = '';
 }
+
 $stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -40,30 +51,40 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenant Due date</title>
+    <title>View Due Date</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <?php
-    include('../include/dash_header.php');
-  ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php
-        include('sidenav.php');
-      ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-3">
-          <div class="border border-dark p-4 mx-auto" style="max-width: 50%;">
-            <h2 class="text-center">Your Details:</h2>
-            <div class="container mt-5 p-0">
-              <h4>Room #: <?php echo $room_number; ?></h4>
-              <h4>Name: <?php echo $full_name; ?></h4>
-              <h4>Due Date: <?php echo $monthly_due_date; ?></h4>
-            </div>
-          </div>
+    <?php include('../include/dash_header.php'); ?>
+    <div class="container-fluid">
+        <div class="row">
+            <?php include('sidenav.php'); ?> 
+            <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+            <div class="container bg-light p-3" style="height: 86vh;">
+                <div class="container bg-light p-3">
+                    <h1 class="mb-4"><i class="fas fa-calendar-alt"></i> View Due Date</h1>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tenant Information</h5>
+                                    <p class="card-text"><strong>Name:</strong> <?php echo "{$first_name} {$last_name}"; ?></p>
+                                    <p class="card-text"><strong>Room Number:</strong> <?php echo $room_number; ?></p>
+                                    <p class="card-text"><strong>Start Date:</strong> <?php echo $start_date; ?></p>
+                                    <p class="card-text"><strong>Due Date:</strong> <?php echo $due_date; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </main>
         </div>
-      </main>
     </div>
-  </div>
 </body>
 </html>
+
+<?php
+ob_end_flush();
+?>

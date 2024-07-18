@@ -1,57 +1,50 @@
+<?php
+ob_start();
+require_once('../include/pdoconnect.php'); // Include your database connection script
+
+// Fetch payment history
+$sql = "SELECT * FROM tblpayments ORDER BY created_at DESC";
+$stmt = $pdo->query($sql);
+$payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ob_end_clean();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment History</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <?php
-    include('../include/dash_header.php');
-  ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php
-        include('sidenav.php');
-      ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
-        <div class="container mt-1">
-          <h1 class="mb-2"><i class="fa-solid fa-circle-exclamation"></i> Payment History  </h1>
-        </div>
-        <div class="container text-center p-0">
-          <div class="row border" style="background-color: #D3D3D3;">
-            <div class="col p-2">
-              <p class="fw-bold m-0">Invoice no.</p>
-            </div>
-            <div class="col p-2">
-              <p class="fw-bold m-0">Amount Paid</p>
-            </div>
-            <div class="col p-2">
-              <p class="fw-bold m-0">Date of Payment</p>
-            </div>
-            <div class="col p-2">
-              <p class="fw-bold m-0">Remarks</p>
-            </div>
-          </div>
-        </div>
-        <div class="container text-center p-0 overflow-y-auto mb-4" style="height: 400px; overflow-x: hidden;">
-          <div class="row bg-light border">
-            <div class="col p-2 border-end">
-              <p class="m-0"><span class="fw-normal fst-italic">code</span></p>
-            </div>
-            <div class="col p-2 border-end">
-              <p class="m-0"><span class="fw-normal fst-italic">code</span></p>
-            </div>
-            <div class="col p-2 border-end">
-              <p class="m-0"><span class="fw-normal fst-italic">code</span></p>
-            </div>
-            <div class="col p-2 border-end">
-              <p class="m-0"><span class="fw-normal fst-italic">code</p>
-            </div>
-          </div>
-        </div>
-      </main>
+    <div class="container">
+        <h1>Payment History</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Payment Method</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($payments as $payment): ?>
+                    <tr>
+                        <td><?php echo $payment['payment_id']; ?></td>
+                        <td><?php echo $payment['amount']; ?></td>
+                        <td><?php echo $payment['description']; ?></td>
+                        <td><?php echo $payment['status']; ?></td>
+                        <td><?php echo $payment['payment_method']; ?></td>
+                        <td><?php echo $payment['created_at']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
-  </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

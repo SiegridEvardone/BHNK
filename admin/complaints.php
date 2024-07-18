@@ -1,15 +1,10 @@
 <?php
-session_start();
+// Start output buffering
 ob_start();
+session_start();
 
 // Include database connection
 include('../include/connection.php');
-
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ulogin.php");
-    exit();
-}
 
 // Fetch complaints data from the database
 $sql = "
@@ -22,10 +17,11 @@ $sql = "
         COALESCE(c.admin_response, 'N/A') AS reply,
         u.first_name, 
         u.last_name,
-        b.room_id
+        r.room_number
     FROM tblcomplaints c
     JOIN tbltenant b ON c.tenant_id = b.user_id
     JOIN tbluser u ON b.user_id = u.user_id
+    JOIN tblrooms r ON b.room_id = r.id
     ORDER BY FIELD(c.status, 'Pending', 'Solved'), c.date_submitted DESC
 ";
 
@@ -45,7 +41,7 @@ if (!$result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaints</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Ss5m1LuJMXDJBxwP8ti+8eqK2n7L3ERPTZBB7EvRoJZz5pRlNEMD6WZGvIebFr6nh+l4Wb6Qnpxm9QW03k9iXw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <?php include('../include/dash_header.php'); ?>
@@ -90,7 +86,7 @@ if (!$result) {
                                 <div class="row bg-light border">
                                     <!-- Room number -->
                                     <div class="col-sm-1 p-2 border-end">
-                                        <p><?php echo htmlspecialchars($row['room_id']); ?></p>
+                                        <p><?php echo htmlspecialchars($row['room_number']); ?></p>
                                     </div>
                                     <!-- Tenant name -->
                                     <div class="col p-2 border-end">
@@ -110,12 +106,17 @@ if (!$result) {
                                     </div>
                                     <!-- Status -->
                                     <div class="col p-2 border-end">
-                                    <p style="background-color: <?php echo ($row['status'] == 'pending') ? '#fc5d5d' : '#8ef078'; ?>"><?php echo htmlspecialchars($row['status']); ?></p>
+                                      <p class="p-0" style="background-color: <?php echo (strtolower($row['status']) == 'pending') ? '#fc5d5d' : '#8ef078'; ?>; padding: 5px; border-radius: 5px;">
+                                          <?php echo htmlspecialchars($row['status']); ?>
+                                      </p>
                                     </div>
+
+
                                     <!-- Action (View Complaint button) -->
                                     <div class="col-sm-1 p-2 border-end">
                                         <a href="complaints_view.php?id=<?php echo $row['id']; ?>" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                     </div>
+
                                 </div>
                             <?php endwhile; ?>
                         <?php else: ?>

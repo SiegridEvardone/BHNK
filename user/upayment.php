@@ -1,45 +1,74 @@
 <?php
-// Process the payment here (integration with GCash APIs)
+session_start();
 
-// Retrieve payment information from the form
-$amount = $_POST['amount'];
-$reference = $_POST['reference'];
+// Include database connection and other necessary files
+include('../include/connection.php');
 
-// Placeholder for payment processing logic
-// In a real application, you would integrate with GCash APIs or a payment gateway
-// For demonstration purposes, we'll simply simulate a successful payment
-$success = true;
-
-if ($success) {
-    // Payment successful
-    $message = "Payment successful! Amount: $amount, Reference: $reference";
-} else {
-    // Payment failed
-    $message = "Payment failed! Please try again.";
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
 }
 
-// Redirect the user to a payment status page along with the message
-header("Location: payment_status.php?message=" . urlencode($message));
-exit;
+// Fetch tenant information (example)
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT user_id, first_name, last_name FROM tbluser WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $tenant = $result->fetch_assoc();
+}
+
+$stmt->close();
+$conn->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCash Payment</title>
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>GCash Payment</h1>
-    <form action="" method="POST">
-        <label for="amount">Amount:</label>
-        <input type="text" id="amount" name="amount" required><br><br>
-        <label for="reference">Reference Number:</label>
-        <input type="text" id="reference" name="reference" required><br><br>
-        <button type="submit">Pay with GCash</button>
-    </form>
+    <?php include('../include/dash_header.php'); ?>
+    <div class="container-fluid">
+        <div class="row">
+            <?php include('sidenav.php'); ?>
+            <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+            <div class="container bg-light p-3" style="height: 86vh;">
+                <div class="container bg-light p-3">
+                    <h1 class="mb-4"><i class="fas fa-money-check-alt"></i> Make Payment (via G-CASH)</h1>
+                    <div class="card">
+                        <div class="card-body">
+                        <form action="upayment_process.php" method="POST">
+                            <div class="form-group">
+                                <label for="amount">Amount (PHP)</label>
+                                <input type="number" class="form-control" id="amount" name="amount" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" name="description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment_method">Payment Method</label>
+                                <select class="form-control" id="payment_method" name="payment_method" required>
+                                    <option value="gcash">G-Cash</option>
+                                    <!-- Add other payment methods if needed -->
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </main>
+        </div>
+    </div>
 </body>
 </html>

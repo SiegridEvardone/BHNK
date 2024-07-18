@@ -17,7 +17,7 @@
                 BHNK MANAGEMENT SYSTEM
             </a>
             <div class="navbar-text text-white">
-                Welcome !
+                Welcome!
             </div>
         </div>
     </nav>

@@ -1,5 +1,4 @@
 <?php
-  // Include your database connection file
   include('../include/connection.php');
 ?>
 
@@ -33,43 +32,43 @@
         include('sidenav.php');
       ?>  
             <!-- Page Content -->
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-2 py-md-2">
         <div class="container mt-3">
           <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: orange;">
-                <div class="row">
-                  <div class="col-8 p-3">
-                    <h2 class="ps-2">
-                    <?php
-                      $totalRooms = 'tblrooms';
-                      $sql = "SELECT COUNT(*) AS rowCount FROM $totalRooms";
-                      $result = mysqli_query($conn, $sql);
-                      if ($result) {
-                          $row = mysqli_fetch_assoc($result);
-                          $rowCount = $row['rowCount'];
-                          echo "<p class='mb-0'>$rowCount</p>";
-                      } else {
-                          echo "<p>Failed to retrieve row count for table: $totalRooms</p>";
-                      }
-                    ?>
-                    </h2>
-                    <h4 class="ps-2">Total Rooms</h4>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card-container border rounded shadow p-0" style="background-color: orange;">
+                  <div class="row">
+                    <div class="col-8 p-3">
+                      <h2 class="ps-2">
+                      <?php
+                        $totalRooms = 'tblrooms';
+                        $sql = "SELECT COUNT(*) AS rowCount FROM $totalRooms";
+                        $result = mysqli_query($conn, $sql);
+                        if ($result) {
+                            $row = mysqli_fetch_assoc($result);
+                            $rowCount = $row['rowCount'];
+                            echo "<p class='mb-0'>$rowCount</p>";
+                        } else {
+                            echo "<p>Failed to retrieve row count for table: $totalRooms</p>";
+                        }
+                      ?>
+                      </h2>
+                      <h4 class="ps-2">Total Rooms</h4>
+                    </div>
+                    <div class="col-4">
+                      <div class="text-white text-end p-3">
+                        <i class="fa-solid fa-bed fs-1"></i>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <div class="text-white text-end p-3">
-                      <i class="fa-solid fa-bed fs-1"></i>
+                  
+                  <div class="col-12 bg-dark bg-opacity-10">
+                    <div class="p-2">
+                      <a href="rooms.php" class="fs-6">View Details ></a>
                     </div>
                   </div>
                 </div>
-                
-                <div class="col-12 bg-dark bg-opacity-10">
-                  <div class="p-2">
-                    <a href="rooms.php" class="fs-6">View Details ></a>
-                  </div>
-                </div>
               </div>
-            </div>
             <div class="col-12 col-md-6 col-lg-4">
               <div class="card-container border rounded shadow p-0" style="background-color: green;">
                 <div class="row">
@@ -161,7 +160,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: darkblue;">
+              <div class="card-container border rounded shadow p-0" style="background-color: indigo;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -187,28 +186,6 @@
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
-                     0
-                    </h2>
-                    <h4 class="ps-2">Invoice</h4>
-                  </div>
-                  <div class="col-4">
-                    <div class="text-white text-end p-3">
-                      <i class="fa-solid fa-bed fs-1"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 bg-dark bg-opacity-10">
-                  <div class="p-2">
-                    <a href="#" class="fs-6">View Details ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: darkblue;">
-                <div class="row">
-                  <div class="col-8 p-3">
-                    <h2 class="ps-2">
                    0
                     </h2>
                     <h4 class="ps-2">Income Report</h4>
@@ -227,7 +204,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: indigo;">
+              <div class="card-container border rounded shadow p-0" style="background-color: darkblue;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -271,7 +248,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: orange;">
+              <div class="card-container border rounded shadow p-0" style="background-color: green;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -315,7 +292,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: green;">
+              <div class="card-container border rounded shadow p-0" style="background-color: orange;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">

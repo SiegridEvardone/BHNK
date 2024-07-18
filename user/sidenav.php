@@ -17,7 +17,7 @@
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fa-solid fa-money-bill-wave"></i> Payments</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item text-dark" href="view_duedate.php">View Due Date</a></li>
-            <li><a class="dropdown-item text-dark" href="">Pay Rent</a></li>
+            <li><a class="dropdown-item text-dark" href="upayment.php">Pay Rent</a></li>
             <li><a class="dropdown-item text-dark" href="upayment_history.php">Payments History</a></li>
           </ul>
         </li>

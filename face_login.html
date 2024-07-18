@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Login</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/css/stylemain.css"/>
+    <style>
+        body {
+            background: linear-gradient(to right,#0F1035,#365486,#7FC7D9,#DCF2F1);
+            color: white;
+        }
+        .container-fluid {
+            padding: 20px;
+            max-width: 1900px; /* Adjust the max-width according to your preference */
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensure full viewport height */
+        }
+        #video {
+            width: 224px;
+            height: 224px;
+            transform: scaleX(-1); /* Mirror the video feed */
+            margin-bottom: 10px;
+        }
+        .card {
+            max-width: 18rem; /* Adjust card width as needed */
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-title">Face Login</h3>
+            <video id="video" autoplay></video><br>
+            <button class="btn btn-primary" onclick="startFaceLogin()">Start Face Login</button><br>
+            <p id="status"></p>
+        </div>
+    </div>
+</div>
+
+<!-- Include TensorFlow.js and Teachable Machine libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
+<script>
+    let model, webcam, maxPredictions;
+
+    // Load the Teachable Machine model
+    async function loadModel() {
+        const URL = 'model/';  // Path to your model files
+        const modelURL = URL + 'model.json';
+        const metadataURL = URL + 'metadata.json';
+
+        try {
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            console.log("Model loaded successfully.");
+        } catch (error) {
+            console.error("Error loading model:", error);
+        }
+    }
+
+    // Start the webcam and perform face recognition
+    async function startFaceLogin() {
+        const video = document.getElementById('video');
+        const status = document.getElementById('status');
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            status.innerText = 'Webcam enabled. Please wait...';
+            const flip = true;
+
+            webcam = new tmImage.Webcam(224, 224, flip);  // width, height, flip
+            await webcam.setup();  // request access to the webcam
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            async function loop() {
+                webcam.update();  // update the webcam frame
+
+                if (model && webcam.canvas) {
+                    const prediction = await model.predict(webcam.canvas);
+
+                    // Find the prediction with the highest probability
+                    const maxPrediction = prediction.reduce((max, p) => p.probability > max.probability ? p : max, prediction[0]);
+
+                    // Redirect based on prediction result
+                    if (maxPrediction.className === "admin" && maxPrediction.probability > 0.9) {
+                        status.innerText = 'Face recognized. Logging in...';
+                        await delay(3000);  // Delay for 3 seconds
+                        alert('Welcome Admin!');
+                        window.location.href = 'admin/index.php';  // Redirect upon successful recognition
+                    } else {
+                        status.innerText = 'Face not recognized. Please try again.';
+                    }
+                }
+
+                window.requestAnimationFrame(loop);
+            }
+        } catch (error) {
+            console.error('Error accessing webcam:', error);
+            status.innerText = 'Error accessing webcam. Please enable and try again.';
+        }
+    }
+
+    // Delay function
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    loadModel();  // Load the model when the page loads
+</script>
+
+</body>
+</html>

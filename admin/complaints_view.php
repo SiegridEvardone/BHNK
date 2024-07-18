@@ -2,11 +2,6 @@
 session_start();
 include('../include/connection.php');
 
-// Check if the admin is logged in and has the correct role
-if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../adminlogin.php");
-    exit();
-}
 
 // Get the complaint ID from the URL
 if (!isset($_GET['id'])) {
@@ -28,8 +23,8 @@ $sql = "SELECT
             u.last_name, 
             b.room_id 
         FROM tblcomplaints c 
-        JOIN tbltenant b ON c.tenant_id = b.user_id 
-        JOIN tbluser u ON b.user_id = u.user_id 
+        LEFT JOIN tbltenant b ON c.tenant_id = b.user_id 
+        LEFT JOIN tbluser u ON b.user_id = u.user_id 
         WHERE c.id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -49,7 +44,7 @@ $stmt->close();
 // Handle form submissions
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Submit reply form
-    if (isset($_POST["reply"])) {
+    if (isset($_POST["submit_reply"])) {
         $reply = $_POST["reply"];
 
         // Update the complaint with admin's response
@@ -65,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Change status form
-    if (isset($_POST["status"])) {
+    if (isset($_POST["submit_status"])) {
         $new_status = $_POST["status"];
 
         // Update the complaint status
