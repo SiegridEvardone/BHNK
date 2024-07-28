@@ -1,50 +1,83 @@
-<?php
-ob_start();
-require_once('../include/pdoconnect.php'); // Include your database connection script
-
-// Fetch payment history
-$sql = "SELECT * FROM tblpayments ORDER BY created_at DESC";
-$stmt = $pdo->query($sql);
-$payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-ob_end_clean();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment History</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Payment History</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Payment ID</th>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Payment Method</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($payments as $payment): ?>
-                    <tr>
-                        <td><?php echo $payment['payment_id']; ?></td>
-                        <td><?php echo $payment['amount']; ?></td>
-                        <td><?php echo $payment['description']; ?></td>
-                        <td><?php echo $payment['status']; ?></td>
-                        <td><?php echo $payment['payment_method']; ?></td>
-                        <td><?php echo $payment['created_at']; ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+  <?php
+    include('../include/dash_header.php');
+  ?>
+  <div class="container-fluid">
+    <div class="row">
+      <?php
+        include('sidenav.php');
+      ?> 
+      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
+        <div class="container bg-light p-3" style="height: 510px;">
+          <h1>Payment History</h1>
+          <table id="payments-table">
+              <thead>
+                  <tr>
+                      <th>Transaction ID</th>
+                      <th>Payer Name</th>
+                      <th>Payer Email</th>
+                      <th>Amount</th>
+                      <th>Payment Status</th>
+                      <th>Payment Date</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Payment records will be inserted here -->
+              </tbody>
+          </table>
+
+          <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  fetch('fetch_payments.php')
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.success) {
+                              const tableBody = document.querySelector('#payments-table tbody');
+                              data.payments.forEach(payment => {
+                                  const row = document.createElement('tr');
+                                  row.innerHTML = `
+                                      <td>${payment.transaction_id}</td>
+                                      <td>${payment.payer_name}</td>
+                                      <td>${payment.payer_email}</td>
+                                      <td>PHP ${payment.amount}</td>
+                                      <td>${payment.payment_status}</td>
+                                      <td>${payment.payment_date}</td>
+                                  `;
+                                  tableBody.appendChild(row);
+                              });
+                          } else {
+                              alert('Failed to fetch payment history: ' + data.message);
+                          }
+                      })
+                      .catch(error => console.error('Error:', error));
+              });
+          </script>
+        </div>
+      </main>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </div>
 </body>
 </html>
