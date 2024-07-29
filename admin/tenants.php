@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" />
 </head>
 <body>
-  <?php include('../include/dash_header.php'); ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php include('sidenav.php'); ?>  
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-        <div class="container bg-light p-3">
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">  
+    <div class="container bg-light p-3">
           <h1 class="mb-2"><i class="fa-solid fa-users"></i> Tenants</h1>
           <div class="container text-center p-0">
             <div class="row border" style="background-color: #D3D3D3;">
@@ -98,8 +98,8 @@
             ?>   
           </div>
         </div>
-      </main>
     </div>
   </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

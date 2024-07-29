@@ -1,0 +1,162 @@
+*{
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+.home_bg{
+  background: linear-gradient(#0A1A44,#0A1A44,#071332,#00C4CC);
+}
+.main {
+  margin-left: 0; /* Start with the main content taking full width */
+  transition: margin-left .5s;
+  padding: 16px;
+}
+/* Custom CSS to change the hover color of dropdown items */
+.dropdown-item:hover {
+    background-color: #b1b2b4; 
+    color: white;
+}
+
+.login_btn{
+  background-color: #537D86;
+  color: white;
+}
+
+.login_btn:hover{
+  background-color: darkslategrey;
+  color: white;
+}
+
+/*--admin dashboard start--*/
+.sidenav {
+  height: auto;
+  overflow-y: auto;
+}
+
+.navbar{
+  background: linear-gradient(to right,#0F1035,#365486,#7FC7D9);
+}
+#sidebarMenu{
+  background-color: #0C134F;
+}
+.admin_nav i{
+  color: white;
+}
+.admin_nav li a{
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+.admin_nav li:hover{
+  background-color: #05071e;
+}
+
+.admin_nav li a:hover{
+  color: white;
+}
+
+#sidebarMenu .dropdown-menu li:hover{
+  background-color: #2A7CC7;
+}
+
+main{
+  height: auto;
+  background-color: #e7e6e6;
+}
+
+main .dashcard h4{
+  color: white;
+}
+.card-container {
+padding: 10px;
+}
+.card-container a {
+color: white;
+text-decoration: none;
+}
+body {
+  font-family: "Lato", sans-serif;
+}
+/*side nav start*/
+.sidebar {
+  height: 100%;
+  width: 0; /* Start with the sidebar collapsed */
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #0C134F;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  background-color: #0C134F;
+  border: none;
+  color: #ffff;
+}
+
+
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #0F1035;
+  color: white;
+  padding: 12px 12px;
+  border: none;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {width: 0; top: 0; left: 0;}
+  .main {margin-left: 0;}
+}
+/*side nav end*/
+@media (max-width: 576px) {
+  .main {
+      margin-top: 100px; /* More margin for smaller screens */
+  }
+  .container {
+      padding: 10px;
+  }
+  .table th, .table td {
+      font-size: 0.8rem;
+      padding: 0.3rem;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+      max-width: 80%; /* Limit the max width on large screens */
+  }
+  .table th, .table td {
+      font-size: 1.2rem;
+      padding: 1rem;
+  }
+}

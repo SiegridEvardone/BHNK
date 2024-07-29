@@ -54,14 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </style>
 </head>
 <body>
-<?php
-    include('../include/dash_header.php');
-?>
-<div class="container-fluid">
-  <div class="row">
-    <?php include('sidenav.php'); ?>  
-    <main class="col-12 col-md-9 ml-sm-auto col-lg-10 px-md-4 py-md-3">
-      <div class="container mt-1 bg-light p-3">
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main"> 
+    <div class="container mt-1 bg-light p-3">
         <h3 class="mb-4"><i class="fa-solid fa-door-open"></i> Add Room</h3>
         <!-- Add Room Form -->
         <form method="post" enctype="multipart/form-data">
@@ -107,11 +105,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
       </div>
-    </main>
   </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
+<script src="../assets/js/script.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

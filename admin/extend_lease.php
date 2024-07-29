@@ -32,14 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Extend Lease</title>
 </head>
 <body>
-  <?php
-    include('../include/dash_header.php');
-  ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php
-        include('sidenav.php');
-      ?>  
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">  
       <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-4 py-md-3">
         <div class="container bg-light p-3" style="height: 510px;">
           <h1 class="mb-2"><i class="fa-solid fa-users"></i> Extend Lease</h1>
@@ -60,5 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </main>
     </div>
   </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

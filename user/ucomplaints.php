@@ -66,80 +66,73 @@ ob_end_clean();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="path/to/fontawesome/css/all.css"> <!-- Ensure FontAwesome CSS is included -->
     <!-- Add your custom styles here -->
+     <style>
+      .table-container {
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            white-space: nowrap;
+        }
+        .status-pending {
+            background-color: #fc5d5d;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .status-resolved {
+            background-color: #8ef078;
+            color: black;
+            padding: 5px;
+            border-radius: 3px;
+        }
+     </style>
 </head>
 <body>
+  <div class="position-relative">
     <?php include('../include/dash_header.php'); ?>
-    <div class="container-fluid">
-        <div class="row">
-            <?php include('sidenav.php'); ?> 
-            <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md- py-md-3">
-                <div class="container bg-light p-3">
-                    <h1 class="mb-2"><i class="fa-solid fa-circle-exclamation"></i> Complaints</h1>
-                
-                    <a href="submit_complaint.php" class="btn btn-success m-2"><i class="fa-solid fa-plus"></i> Submit Complaint</a>
-                    <div class="container text-center p-0">
-                        <div class="row border" style="background-color: #D3D3D3;">
-                            <div class="col-sm-1 p-2">
-                                <p class="fw-bold m-0">Room #</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Tenant Name</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Complaint/Suggestions</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Date</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Reply from Owner</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Status</p>
-                            </div>
-                            <div class="col-sm-1 p-2">
-                                <p class="fw-bold m-0">Action</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container text-center p-0 overflow-y-auto" style="height: 330px; overflow-x: hidden;">
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">
+        <div class="container border bg-light p-3">
+            <h1 class="mb-2"><i class="fa-solid fa-circle-exclamation"></i> Complaints</h1>
+            <a href="submit_complaint.php" class="btn btn-success m-2"><i class="fa-solid fa-plus"></i> Submit Complaint</a>
+            <div class="table-container">
+                <table class="table table-bordered table-striped">
+                    <thead style="background-color: #D3D3D3;">
+                        <tr>
+                            <th scope="col">Room #</th>
+                            <th scope="col">Tenant Name</th>
+                            <th scope="col">Complaint/Suggestions</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Reply from Owner</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php if (!empty($complaints)): ?>
-                            <?php foreach ($complaints as $complaint): ?>
-                                <div class="row bg-light border">
-                                    <div class="col-sm-1 p-2 border-end">
-                                        <p class="mb-0"><?php echo htmlspecialchars($complaint['room_number']); ?></p>
-                                    </div>
-                                    <div class="col p-2 border-end">
-                                        <p class="mb-0"><?php echo htmlspecialchars($complaint['first_name'] . ' ' . $complaint['last_name']); ?></p>
-                                    </div>
-                                    <div class="col p-2 border-end">
-                                        <p class="mb-0"><?php echo htmlspecialchars($complaint['title']); ?></p>
-                                    </div>
-                                    <div class="col p-2 border-end">
-                                        <p class="mb-0"><?php echo htmlspecialchars($complaint['formatted_date']); ?></p>
-                                    </div>
-                                    <div class="col p-2 border-end" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                        <p class="mb-0"><?php echo htmlspecialchars($complaint['reply']); ?></p>
-                                    </div>
-                                    <div class="col p-2 border-end">
-                                        <p class="mb-0" style="background-color: <?php echo ($complaint['status'] == 'pending') ? '#fc5d5d' : '#8ef078'; ?>;"><?php echo htmlspecialchars($complaint['status']); ?></p>
-                                    </div>
-                                    <div class="col-sm-1 p-2 border-end">
-                                        <a href="ucomplaints_view.php?id=<?php echo $complaint['id']; ?>" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
+                        <?php foreach ($complaints as $complaint): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($complaint['room_number']); ?></td>
+                            <td><?php echo htmlspecialchars($complaint['first_name'] . ' ' . $complaint['last_name']); ?></td>
+                            <td><?php echo htmlspecialchars($complaint['title']); ?></td>
+                            <td><?php echo htmlspecialchars($complaint['formatted_date']); ?></td>
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($complaint['reply']); ?></td>
+                            <td><span class="<?php echo ($complaint['status'] == 'pending') ? 'status-pending' : 'status-resolved'; ?>"><?php echo htmlspecialchars($complaint['status']); ?></span></td>
+                            <td><a href="ucomplaints_view.php?id=<?php echo $complaint['id']; ?>" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a></td>
+                        </tr>
+                        <?php endforeach; ?>
                         <?php else: ?>
-                            <div class="row bg-light border">
-                                <div class="col p-2">
-                                    <p class="fw-normal fst-italic">No complaints found.</p>
-                                </div>
-                            </div>
+                        <tr>
+                            <td colspan="7" class="text-center fst-italic">No complaints found.</td>
+                        </tr>
                         <?php endif; ?>
-                    </div>
-                </div>
-            </main>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

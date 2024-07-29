@@ -7,17 +7,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenant Dashboard</title>
+    <title>Home</title>
+    
 </head>
 <body>
   <div class="position-relative">
-    <?php include('../include/dash_header.php'); ?>
+
+  </div>
+  <?php include('../include/dash_header.php'); ?>
+  <div id="sidebar-container"></div>
     <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
-    <div id="sidebar-container"></div>
-    <div class="main text-light">
-      <div class="row g-4">
+    <div class="main">
+        
+    <div class="row g-4">
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="dashcard card-container border rounded shadow p-0" style="background-color: orange;">
+              <div class="card-container border rounded shadow p-0" style="background-color: orange;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -41,7 +45,7 @@
                                 echo "<p class='mb-0'>$rowCount</p>";
                             } else {
                                 // Handle the case where the query fails
-                                echo "<p>Failed to retrieve row count for table: $totalPayments</p>";
+                                echo "<p>Failed to retrieve row count for table: $totalComplaints</p>";
                             }
                           ?>
                     </h2>
@@ -55,13 +59,13 @@
                 </div>
                 <div class="col-12 bg-dark bg-opacity-10">
                   <div class="p-2">
-                    <a href="upayment_history.php" class="text-light text-decoration-none fs-6">View Details ></a>
+                    <a href="upayment.php" class="text-light text-decoration-none fs-6">View Details ></a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="dashcard card-container border rounded shadow p-0" style="background-color: maroon;">
+              <div class="card-container border rounded shadow p-0" style="background-color: maroon;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -105,7 +109,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="dashcard card-container border rounded shadow p-0" style="background-color: indigo;">
+              <div class="card-container border rounded shadow p-0" style="background-color: indigo;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -151,7 +155,7 @@
               </div>
             </div> 
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="dashcard card-container border rounded shadow p-0" style="background-color: green;">
+              <div class="card-container border rounded shadow p-0" style="background-color: green;">
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
@@ -175,7 +179,30 @@
           </div>
     </div>
     </div>
-    <script src="../assets/js/script.js"></script>
+    <script>
+        // Function to toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            if (sidebar.style.width === "250px" || sidebar.style.width === "") {
+                sidebar.style.width = "0";
+                document.querySelector(".main").style.marginLeft = "0";
+            } else {
+                sidebar.style.width = "250px";
+                document.querySelector(".main").style.marginLeft = "250px";
+            }
+        }
+
+        // Load sidebar.html into the sidebar-container
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("sidebar.php")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("sidebar-container").innerHTML = data;
+                })
+                .catch(error => console.error('Error loading sidebar:', error));
+        });
+    
+    </script>
     
 </body>
 </html>

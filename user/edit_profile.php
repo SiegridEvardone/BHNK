@@ -60,12 +60,12 @@ ob_end_clean();
   </script>
 </head>
 <body>
-  <?php include('../include/dash_header.php'); ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php include('sidenav.php'); ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-        <div class="container bg-light p-3">
+  <div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">
+    <div class="container bg-light p-3">
           <div class="container border border-dark mt-1 p-3" style="max-width: 70%;height: 85%;">
             <form action="update_profile.php" method="POST" enctype="multipart/form-data">
               <div class="row mb-4">
@@ -131,8 +131,8 @@ ob_end_clean();
             </form>
           </div>
         </div>
-      </main>
     </div>
   </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

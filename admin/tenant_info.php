@@ -46,16 +46,12 @@ ob_end_clean();
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<?php
-    include('../include/dash_header.php'); // Include your dashboard header
-?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php
-        include('sidenav.php'); // Include your admin side navigation
-      ?> 
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-        <div class="container bg-light p-3">
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">  
+    <div class="container bg-light p-3">
           <h2 class="mb-3">Tenant Information</h2>
           <div class="container border border-dark mt-1 p-3" style="max-width: 70%;height: 85%;">
             <div class="row mb-2">
@@ -103,8 +99,8 @@ ob_end_clean();
           </div>
           
         </div>
-      </main>
     </div>
   </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

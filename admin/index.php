@@ -8,33 +8,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
-  <style>
-    *{
-      box-sizing: border-box;
-      color: white;
-    }
-    .card-container {
-      padding: 10px;
-    }
-    .card-container a {
-      color: white;
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body  style="overflow-x: hidden;">
-  <?php
-    include('../include/dash_header.php');
-  ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php
-        include('sidenav.php');
-      ?>  
-            <!-- Page Content -->
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-2 py-md-2">
-        <div class="container mt-3">
-          <div class="row g-4">
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main text-light">
+    <div class="row g-4">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card-container border rounded shadow p-0" style="background-color: orange;">
                   <div class="row">
@@ -338,8 +319,7 @@
               
             </div>
           </div>
-      </main>
-    </div>
   </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

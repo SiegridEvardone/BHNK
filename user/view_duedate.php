@@ -55,33 +55,32 @@ $conn->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+  <div class="position-relative">
     <?php include('../include/dash_header.php'); ?>
-    <div class="container-fluid">
-        <div class="row">
-            <?php include('sidenav.php'); ?> 
-            <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-            <div class="container bg-light p-3" style="height: 86vh;">
-                <div class="container bg-light p-3">
-                    <h1 class="mb-4"><i class="fas fa-calendar-alt"></i> View Due Date</h1>
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Tenant Information</h5>
-                                    <p class="card-text"><strong>Name:</strong> <?php echo "{$first_name} {$last_name}"; ?></p>
-                                    <p class="card-text"><strong>Room Number:</strong> <?php echo $room_number; ?></p>
-                                    <p class="card-text"><strong>Start Date:</strong> <?php echo $start_date; ?></p>
-                                    <p class="card-text"><strong>Due Date:</strong> <?php echo $due_date; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">
+      <div class="container bg-light p-3" style="height: 86vh;">
+        <div class="container bg-light p-3">
+          <h1 class="mb-4"><i class="fas fa-calendar-alt"></i> View Due Date</h1>
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Tenant Information</h5>
+                  <p class="card-text"><strong>Name:</strong> <?php echo "{$first_name} {$last_name}"; ?></p>
+                  <p class="card-text"><strong>Room Number:</strong> <?php echo $room_number; ?></p>
+                  <p class="card-text"><strong>Start Date:</strong> <?php echo $start_date; ?></p>
+                  <p class="card-text"><strong>Due Date:</strong> <?php echo $due_date; ?></p>
                 </div>
-                </div>
-            </main>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>
 

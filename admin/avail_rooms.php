@@ -29,16 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Available Rooms</title>
 </head>
 <body style="background-color: #f4f6f9;">
-<?php
-include('../include/dash_header.php');
-?>
-<div class="container-fluid">
-    <div class="row">
-    <?php
-    include('sidenav.php');
-    ?>  
-    <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-        <div class="container bg-light p-3">
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main">  
+    <div class="container border bg-light p-3">
             <h1 class="mb-2"><i class="fa-solid fa-door-open"></i> Available Rooms</h1>
 
             <!-- List of Rooms -->
@@ -126,8 +122,8 @@ include('../include/dash_header.php');
                 </div>
             </div>
         </div>
-    </main>
     </div>
+    <script src="../assets/js/script.js"></script>
 </div>
 </body>
 </html>

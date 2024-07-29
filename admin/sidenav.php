@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-</head>
-<body>
-  <!-- Sidebar -->
-  <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidenav p-0">
-    <div class="position-sticky  pt-3">
-      <ul class="nav flex-column admin_nav">
+<div class="sidebar" id="sidebar">
+    <button class="closebtn" onclick="toggleSidebar()">×</button>
+<ul class="nav flex-column admin_nav">
         <li class="nav-item py-2 pe-2 ps-3"> 
           <a class="nav-link active" href="index.php"><i class="fa-brands fa-windows"></i> Dashboard</a>
         </li>
@@ -47,7 +38,4 @@
           </ul>
         </li>
       </ul>
-    </div>
-  </nav>
-</body>
-</html>
+</div>

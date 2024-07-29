@@ -36,16 +36,12 @@ if(isset($_GET['id'])) {
   <title>Edit Room</title>
 </head>
 <body>
-  <?php
-    include('../include/dash_header.php');
-  ?>
-  <div class="container-fluid">
-    <div class="row">
-      <?php
-        include('sidenav.php');
-      ?>  
-      <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-        <div class="container bg-light p-3">
+<div class="position-relative">
+    <?php include('../include/dash_header.php'); ?>
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main"> 
+    <div class="container bg-light p-3">
           <h3 class="mb-4"><i class="fa-solid fa-door-open"></i> Edit Room</h3>
           <!-- Edit Room Form -->
           <form action="update_room.php" method="post" enctype="multipart/form-data" class="border border-1 border-dark rounded p-4 ">
@@ -71,8 +67,8 @@ if(isset($_GET['id'])) {
               
           </form>
         </div>
-      </main>
     </div>
   </div>
+  <script src="../assets/js/script.js"></script>
 </body>
 </html>

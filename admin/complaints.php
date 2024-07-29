@@ -44,12 +44,12 @@ if (!$result) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+<div class="position-relative">
     <?php include('../include/dash_header.php'); ?>
-    <div class="container-fluid">
-        <div class="row">
-            <?php include('sidenav.php'); ?> 
-            <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-                <div class="container bg-light p-3">
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main"> 
+    <div class="container bg-light p-3">
                     <h1 class="mb-4"><i class="fas fa-circle-exclamation"></i> Complaints</h1>
 
                     <div class="container text-center p-0">
@@ -129,9 +129,9 @@ if (!$result) {
                         <?php endif; ?>
                     </div>
                 </div>
-            </main>
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
 

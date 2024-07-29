@@ -88,12 +88,12 @@ $conn->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div class="position-relative">
     <?php include('../include/dash_header.php'); ?>
-    <div class="container-fluid">
-        <div class="row">
-            <?php include('sidenav.php'); ?> 
-            <main class="col-12 col-md-5 ms-sm-auto col-lg-10 px-md-3 py-md-3">
-                <div class="container bg-light p-3" style="height: 510px;">
+    <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar-container"></div>
+    <div class="main"> 
+    <div class="container bg-light p-3" style="height: 510px;">
                     <div class="border border-dark p-4 mx-auto" style="max-width: 80%;">
                         <div class="row">
                             <div class="col">
@@ -132,8 +132,8 @@ $conn->close();
                         <a href="complaints.php" class="btn btn-success">Back to Complaints</a>
                     </div>
                 </div>
-            </main>
         </div>
     </div>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
