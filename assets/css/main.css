@@ -13,6 +13,7 @@
   margin-left: 0; /* Start with the main content taking full width */
   transition: margin-left .5s;
   padding: 16px;
+  
 }
 /* Custom CSS to change the hover color of dropdown items */
 .dropdown-item:hover {

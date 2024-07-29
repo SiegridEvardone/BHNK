@@ -163,28 +163,6 @@
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-container border rounded shadow p-0" style="background-color: maroon;">
-                <div class="row">
-                  <div class="col-8 p-3">
-                    <h2 class="ps-2">
-                   0
-                    </h2>
-                    <h4 class="ps-2">Income Report</h4>
-                  </div>
-                  <div class="col-4">
-                    <div class="text-white text-end p-3">
-                      <i class="fa-solid fa-bed fs-1"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 bg-dark bg-opacity-10">
-                  <div class="p-2">
-                    <a href="#" class="fs-6">View Details ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
               <div class="card-container border rounded shadow p-0" style="background-color: darkblue;">
                 <div class="row">
                   <div class="col-8 p-3">

@@ -26,8 +26,8 @@
         <?php include('../include/dash_header.php'); ?>
         <button class="openbtn btn btn-primary position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
         <div id="sidebar-container"></div>
-        <div class="main container">
-            <div class="bg-light p-3" style="min-height: 510px;">
+        <div class="main">
+            <div class="container bg-light p-3" style="min-height: 510px;">
                 <h1 class="mb-4">Payment History</h1>
                 <div class="table-responsive">
                     <table id="payments-table" class="table table-striped">

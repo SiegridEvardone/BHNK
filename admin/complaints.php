@@ -42,96 +42,108 @@ if (!$result) {
     <title>Complaints</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 2rem;
+        }
+        .header-icon {
+            margin-right: 0.5rem;
+        }
+        .status-pending {
+            background-color: #fc5d5d;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .status-solved {
+            background-color: #8ef078;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .ellipsis {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .action-btn {
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 1rem;
+            }
+            .header-icon {
+                margin-right: 0.25rem;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="position-relative">
     <?php include('../include/dash_header.php'); ?>
     <button class="openbtn position-absolute top-0 start-0" onclick="toggleSidebar()">☰</button>
     <div id="sidebar-container"></div>
-    <div class="main"> 
-    <div class="container bg-light p-3">
-                    <h1 class="mb-4"><i class="fas fa-circle-exclamation"></i> Complaints</h1>
-
-                    <div class="container text-center p-0">
-                        <div class="row border" style="background-color: #D3D3D3;">
-                            <!-- Table headers -->
-                            <div class="col-sm-1 p-2">
-                                <p class="fw-bold m-0">Room #</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Tenant Name</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Complaint/Suggestions</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Date</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Reply from owner</p>
-                            </div>
-                            <div class="col p-2">
-                                <p class="fw-bold m-0">Status</p>
-                            </div>
-                            <div class="col-sm-1 p-2">
-                                <p class="fw-bold m-0">Action</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container text-center p-0 overflow-y-auto mb-4" style="height: 350px; overflow-x: hidden;">
+    <div class="main">
+        <div class="container bg-light p-3">
+            <h1 class="mb-4"><i class="fas fa-circle-exclamation header-icon"></i> Complaints</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Room #</th>
+                            <th>Tenant Name</th>
+                            <th>Complaint/Suggestions</th>
+                            <th>Date</th>
+                            <th>Reply from Owner</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php if ($result->num_rows > 0): ?>
                             <!-- Loop through complaints data and display each complaint -->
                             <?php while ($row = $result->fetch_assoc()): ?>
-                                <div class="row bg-light border">
+                                <tr>
                                     <!-- Room number -->
-                                    <div class="col-sm-1 p-2 border-end">
-                                        <p><?php echo htmlspecialchars($row['room_number']); ?></p>
-                                    </div>
+                                    <td><?php echo htmlspecialchars($row['room_number']); ?></td>
                                     <!-- Tenant name -->
-                                    <div class="col p-2 border-end">
-                                        <p><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></p>
-                                    </div>
+                                    <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
                                     <!-- Complaint/Suggestions -->
-                                    <div class="col p-2 border-end">
-                                        <p><?php echo htmlspecialchars($row['title']); ?></p>
-                                    </div>
+                                    <td class="ellipsis"><?php echo htmlspecialchars($row['title']); ?></td>
                                     <!-- Date -->
-                                    <div class="col p-2 border-end">
-                                        <p><?php echo htmlspecialchars($row['formatted_date']); ?></p>
-                                    </div>
+                                    <td><?php echo htmlspecialchars($row['formatted_date']); ?></td>
                                     <!-- Reply from owner -->
-                                    <div class="col p-2 border-end" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                        <p><?php echo htmlspecialchars($row['reply']); ?></p>
-                                    </div>
+                                    <td class="ellipsis"><?php echo htmlspecialchars($row['reply']); ?></td>
                                     <!-- Status -->
-                                    <div class="col p-2 border-end">
-                                      <p class="p-0" style="background-color: <?php echo (strtolower($row['status']) == 'pending') ? '#fc5d5d' : '#8ef078'; ?>; padding: 5px; border-radius: 5px;">
-                                          <?php echo htmlspecialchars($row['status']); ?>
-                                      </p>
-                                    </div>
-
-
+                                    <td>
+                                        <span class="<?php echo strtolower($row['status']) == 'pending' ? 'status-pending' : 'status-solved'; ?>">
+                                            <?php echo htmlspecialchars($row['status']); ?>
+                                        </span>
+                                    </td>
                                     <!-- Action (View Complaint button) -->
-                                    <div class="col-sm-1 p-2 border-end">
-                                        <a href="complaints_view.php?id=<?php echo $row['id']; ?>" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                    </div>
-
-                                </div>
+                                    <td>
+                                        <a href="complaints_view.php?id=<?php echo $row['id']; ?>" class="btn btn-primary action-btn"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
                             <!-- No complaints found -->
-                            <div class="row bg-light border">
-                                <div class="col p-2">
-                                    <p class="fw-normal fst-italic">No complaints found.</p>
-                                </div>
-                            </div>
+                            <tr>
+                                <td colspan="7" class="text-center">No complaints found.</td>
+                            </tr>
                         <?php endif; ?>
-                    </div>
-                </div>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <script src="../assets/js/script.js"></script>
+</div>
+<script src="../assets/js/script.js"></script>
 </body>
 </html>
 
