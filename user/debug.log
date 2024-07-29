@@ -1,0 +1,62 @@
+Array
+(
+    [payer_name] => John Doe
+    [payer_email] => johndoe@example.com
+    [amount] => 100
+    [transaction_id] => TEST123456
+    [payment_status] => COMPLETED
+    [user_id] => 2
+)
+Array
+(
+    [payer_name] => John Doe
+    [payer_email] => johndoe@example.com
+    [amount] => 100
+    [transaction_id] => TEST123456
+    [payment_status] => COMPLETED
+    [user_id] => 2
+)
+Array
+(
+    [payer_name] => John Doe
+    [payer_email] => johndoe@example.com
+    [amount] => 200
+    [transaction_id] => TEST123456
+    [payment_status] => COMPLETED
+    [user_id] => 2
+)
+Array
+(
+    [payer_name] => John Doe
+    [payer_email] => johndoe@example.com
+    [amount] => 200
+    [transaction_id] => TEST123456
+    [payment_status] => COMPLETED
+    [user_id] => 2
+)
+Array
+(
+    [success] => 1
+)
+Array
+(
+    [payer_name] => Lorreta Julie Cidro
+    [payer_email] => lorretajuliecidro@gmail.com
+    [amount] => 35.88
+    [transaction_id] => 1YY75265PF507242Y
+    [payment_status] => COMPLETED
+    [user_id] => 2
+)
+Array
+(
+    [payer_name] => Lorreta Julie Cidro
+    [payer_email] => lorretajuliecidro@gmail.com
+    [amount] => 35.88
+    [transaction_id] => 1YY75265PF507242Y
+    [payment_status] => COMPLETED
+    [user_id] => 2
+)
+Array
+(
+    [success] => 1
+)

@@ -6,6 +6,15 @@ include('../include/pdoconnect.php');
 $selected_month = isset($_GET['month']) ? $_GET['month'] : date('m');
 $selected_year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 
+// Debug: Check the values of selected_month and selected_year
+error_log("Selected month: $selected_month");
+error_log("Selected year: $selected_year");
+
+// Validate month and year
+if (!ctype_digit($selected_month) || !ctype_digit($selected_year)) {
+    die("Invalid month or year");
+}
+
 // Fetch the available months and years for filtering
 $sql_month_year = "SELECT DISTINCT MONTH(created_at) AS month, YEAR(created_at) AS year 
                    FROM payments 
@@ -16,11 +25,23 @@ $months_years = $months_years_stmt->fetchAll(PDO::FETCH_ASSOC);
 // Fetch payment history for the selected month and year
 $sql = "SELECT transaction_id, payer_name, payer_email, amount, payment_status, created_at 
         FROM payments 
-        WHERE MONTH(created_at) = ? AND YEAR(created_at) = ?
+        WHERE MONTH(created_at) = :month AND YEAR(created_at) = :year
         ORDER BY created_at DESC";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$selected_month, $selected_year]);
-$payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Debug: Check if month and year are numeric and valid
+error_log("Month and year for SQL query: $selected_month, $selected_year");
+
+try {
+    $stmt->bindParam(':month', $selected_month, PDO::PARAM_INT);
+    $stmt->bindParam(':year', $selected_year, PDO::PARAM_INT);
+    $stmt->execute();
+    $payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("SQL Error: " . $e->getMessage());
+    $payments = []; // Ensure $payments is defined even if an error occurs
+}
+
 ob_end_clean();
 ?>
 <!DOCTYPE html>
@@ -42,6 +63,8 @@ ob_end_clean();
             border-radius: 0.5rem;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 1rem;
+            max-height: 500px; /* Adjust as needed */
+            overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
         }
         .table thead th {
             background-color: transparent;
@@ -124,25 +147,23 @@ ob_end_clean();
                                 <th>Payer Name</th>
                                 <th>Payer Email</th>
                                 <th>Amount</th>
-                                <th>Payment Status</th>
                                 <th>Payment Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if ($payments): ?>
+                            <?php if (!empty($payments)): ?>
                                 <?php foreach ($payments as $payment): ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($payment['transaction_id']); ?></td>
                                         <td><?php echo htmlspecialchars($payment['payer_name']); ?></td>
                                         <td><?php echo htmlspecialchars($payment['payer_email']); ?></td>
                                         <td><?php echo htmlspecialchars(number_format($payment['amount'], 2)); ?></td>
-                                        <td><?php echo htmlspecialchars($payment['payment_status']); ?></td>
                                         <td><?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($payment['created_at']))); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="6" class="text-center">No payment records found for the selected month.</td>
+                                    <td colspan="6" class="text-center">No transactions found for the selected month.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>

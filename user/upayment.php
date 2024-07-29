@@ -1,3 +1,15 @@
+<?php
+session_start(); // Start the session to access session variables
+
+// Check if user is logged in and user ID is available
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if user is not logged in
+    header("Location: /login.php");
+    exit();
+}
+
+$userId = $_SESSION['user_id']; // Get the logged-in user ID
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +54,7 @@
                 <script>
                     const transactionFeeRate = 0.044; // 4.4% transaction fee
                     const fixedFee = 15.00; // Fixed fee in PHP
-                    const userId = 123; // Replace with actual user ID retrieval logic
+                    const userId = <?php echo json_encode($userId); ?>; // PHP to JS variable
 
                     document.getElementById('amount').addEventListener('input', function() {
                         var amount = parseFloat(document.getElementById('amount').value);
@@ -62,50 +74,53 @@
                     });
 
                     paypal.Buttons({
-                        createOrder: function(data, actions) {
-                            var amount = parseFloat(document.getElementById('amount').value);
-                            if (!isNaN(amount)) {
-                                var transactionFee = amount * transactionFeeRate;
-                                var totalFee = transactionFee + fixedFee;
-                                var totalAmount = amount + totalFee;
+    createOrder: function(data, actions) {
+        var amount = parseFloat(document.getElementById('amount').value);
+        if (!isNaN(amount)) {
+            var transactionFee = amount * transactionFeeRate;
+            var totalFee = transactionFee + fixedFee;
+            var totalAmount = amount + totalFee;
 
-                                return actions.order.create({
-                                    purchase_units: [{
-                                        amount: {
-                                            value: totalAmount.toFixed(2) // Use the total amount including transaction fee and fixed fee
-                                        }
-                                    }]
-                                });
-                            }
-                        },
-                        onApprove: function(data, actions) {
-                            return actions.order.capture().then(function(details) {
-                                fetch('/record-payment.php', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        payer_name: details.payer.name.given_name + ' ' + details.payer.name.surname,
-                                        payer_email: details.payer.email_address,
-                                        amount: details.purchase_units[0].amount.value,
-                                        transaction_id: details.id,
-                                        payment_status: details.status,
-                                        user_id: userId
-                                    })
-                                }).then(response => response.json())
-                                  .then(data => {
-                                      if (data.success) {
-                                          alert('Transaction completed successfully!');
-                                      } else {
-                                          alert('Transaction recording failed.');
-                                      }
-                                  }).catch(error => {
-                                      console.error('Error:', error);
-                                  });
-                            });
-                        }
-                    }).render('#paypal-button-container');
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount.toFixed(2) // Use the total amount including transaction fee and fixed fee
+                    }
+                }]
+            });
+        }
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            console.log('PayPal response details:', details); // Log details for debugging
+            fetch('record-payment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    payer_name: details.payer.name.given_name + ' ' + details.payer.name.surname,
+                    payer_email: details.payer.email_address,
+                    amount: details.purchase_units[0].amount.value,
+                    transaction_id: details.id,
+                    payment_status: details.status, // Ensure this is correct
+                    user_id: userId
+                })
+            }).then(response => response.json())
+              .then(data => {
+                  console.log('Backend response:', data); // Log backend response for debugging
+                  if (data.success) {
+                      window.location.href = 'success.php';
+                  } else {
+                      alert('Transaction recording failed: ' + data.error);
+                  }
+              }).catch(error => {
+                  console.error('Error:', error);
+              });
+        });
+    }
+}).render('#paypal-button-container');
+
                 </script>
             </div>
         </div>
