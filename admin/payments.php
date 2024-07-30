@@ -16,7 +16,7 @@ ob_end_clean();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment History</title>
+    <title>Payments</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -30,7 +30,10 @@ ob_end_clean();
             border-radius: 0.5rem;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 1rem;
+            max-height: 450px; /* Adjust this value to your preferred height */
+            overflow-y: auto; /* Enable vertical scrolling if content overflows */
         }
+
         .table thead th {
             background-color: transparent; /* Remove background color */
             color: #343a40; /* Darker text color for better readability */
@@ -74,8 +77,8 @@ ob_end_clean();
     <div id="sidebar-container"></div>
     <div class="main">
         <div class="container">
-            <div class="table-container">
-                <h2 class="mb-4">Payment History</h2>
+            <div class="table-container p-2">
+                <h2 class="mb-4">Payments</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered">
                         <thead>

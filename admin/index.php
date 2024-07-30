@@ -145,7 +145,29 @@
                 <div class="row">
                   <div class="col-8 p-3">
                     <h2 class="ps-2">
-                    0
+                    <?php
+                          // Specify the table name for which you want to count the rows
+                          $totalPayments = 'payments';
+
+                          // SQL query to count the rows in the specified table
+                          $sql = "SELECT COUNT(*) AS rowCount FROM $totalPayments";
+
+                          // Execute the query
+                          $result = mysqli_query($conn, $sql);
+
+                          // Check if the query was successful
+                          if ($result) {
+                              // Fetch the count from the result
+                              $row = mysqli_fetch_assoc($result);
+                              $rowCount = $row['rowCount'];
+
+                              // Display the row count in your HTML code
+                              echo "<p class='mb-0'>$rowCount</p>";
+                          } else {
+                              // Handle the case where the query fails
+                              echo "<p>Failed to retrieve row count for table: $totalPayments</p>";
+                          }
+                        ?>
                     </h2>
                     <h4 class="ps-2">Payments</h4>
                   </div>
@@ -157,7 +179,7 @@
                 </div>
                 <div class="col-12 bg-dark bg-opacity-10">
                   <div class="p-2">
-                    <a href="#" class="fs-6">View Details ></a>
+                    <a href="payments.php" class="fs-6">View Details ></a>
                   </div>
                 </div>
               </div>

@@ -17,7 +17,7 @@
         <li class="nav-item dropdown py-2 pe-2 ps-3">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fa-solid fa-money-bill-wave"></i> Payments</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-dark" href="">Payments</a></li>
+            <li><a class="dropdown-item text-dark" href="payments.php">Payments</a></li>
             <hr>
             <li><a class="dropdown-item text-dark" href="payment_history.php">Payments History</a></li>
 

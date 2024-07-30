@@ -158,7 +158,7 @@
                       <input type="submit" name="login" class="btn btn-primary" value="Login">
                       <hr>
                       <div class="">
-                        <a href="forgot_password.php" >Forgot password?</a>
+                        <a href="confirm_account.html" >Forgot password?</a>
                       </div>
                     </div>
                   </form>
