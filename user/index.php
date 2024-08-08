@@ -1,6 +1,13 @@
 <?php
   session_start();
   include('../include/connection.php');
+
+  // Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+  // Redirect to login page
+  header("Location: ../login.php");
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

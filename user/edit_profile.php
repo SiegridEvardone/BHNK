@@ -7,7 +7,7 @@ include('../include/pdoconnect.php');
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect the user to the login page if not logged in
-    header("Location: ../userlogin.php");
+    header("Location: ../login.php");
     exit();
 }
 
