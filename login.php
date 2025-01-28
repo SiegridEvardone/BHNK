@@ -8,7 +8,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
   <link rel="stylesheet" type="text/css" href="assets/css/all.min.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/css/stylemainn.css"/>
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
 

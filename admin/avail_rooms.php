@@ -12,12 +12,14 @@
     }
     .table-container {
       overflow-x: auto; /* Allows horizontal scrolling */
-      overflow-y: hidden; /* Prevents vertical scrolling if not needed */
-      max-height: 380px; /* Sets the maximum height */
+      overflow-y: auto; /* Prevents vertical scrolling if not needed */
+      max-height: 420px; /* Sets the maximum height */
+      padding-bottom: 10px;
     }
     .table {
       min-width: 1000px; /* Ensures the table doesn’t wrap on larger screens */
-      white-space: nowrap; /* Prevents text from wrapping */
+      white-space: nowrap;
+       /* Prevents text from wrapping */
     }
     .table td img {
       max-width: 100px; /* Restrict maximum width of images */

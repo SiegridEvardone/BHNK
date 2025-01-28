@@ -59,7 +59,7 @@
         <p class="card-text"><strong>Start Date: </strong><i><?php echo $startDate; ?></i></p>
         <p class="card-text"><strong>Next Duedate: </strong><i><?php echo $nextDueDate; ?></i></p>
         <p class="card-text"><strong>End Date: </strong><i><?php echo $endDate; ?></i></p>
-        <a href='extend_lease.php?lease_id=<?php echo $row['LeaseID']; ?>' class='btn btn-primary text-light'>EXTEND</a>
+        <a href='extend_lease.php?lease_id=<?php echo $row['LeaseID']; ?>' class='btn btn-primary text-light'>EDIT</a>
       </div>
     </div>
   </div>
